@@ -1,139 +1,190 @@
 <!doctype html>
 <html lang="pl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
   <title>Polityka prywatności — Flota</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
-      line-height: 1.6;
-      color: #222;
-    }
-    h1, h2 {
-      color: #111;
+    :root { color-scheme: light dark; }
+    body { font-family: system-ui, sans-serif; max-width: 56rem; margin: 2rem auto;
+      padding: 0 1.25rem 3rem; line-height: 1.65; background: #fff; color: #20252c; overflow-wrap: anywhere; }
+    h1, h2 { line-height: 1.25; } h1 { font-size: 2rem; } h2 { margin-top: 2rem; font-size: 1.35rem; }
+    a { color: #174f9c; text-underline-offset: .2em; }
+    a:focus-visible { outline: 3px solid #397ce0; outline-offset: 4px; }
+    li { margin: .5rem 0; } .date { color: #535e6d; }
+    @media (prefers-color-scheme: dark) {
+      body { background: #101720; color: #e5eaf0; } a { color: #9cc7ff; } .date { color: #b9c4d2; }
     }
   </style>
 </head>
 <body>
+<main>
   <h1>Polityka prywatności aplikacji „Flota”</h1>
+  <p class="date">Data aktualizacji: <time datetime="2026-09-14">14 września 2026 r.</time></p>
 
-  <p>Data aktualizacji: 11 września 2026 r.</p>
+  <h2>1. Kto odpowiada za dane i jak się skontaktować</h2>
+  <p>Za przetwarzanie danych otrzymanych w związku z korespondencją i dobrowolnym wsparciem
+    odpowiada Michał Draba, twórca aplikacji Flota. Kontakt w sprawach prywatności, feedbacku i realizacji praw:
+    <a href="mailto:michal.draba@gmail.com">michal.draba@gmail.com</a>.</p>
+  <p>Flota pomaga prowadzić listę pojazdów, sprawdzać ich historię oraz pamiętać o OC
+    i badaniach technicznych. Nie wymaga konta we Flocie. Dane lokalne nie są automatycznie
+    przesyłane do twórcy. Operatorzy usług opisanych poniżej odpowiadają za przetwarzanie
+    danych w swoich usługach zgodnie z własnymi zasadami.</p>
 
-  <h2>1. Informacje ogólne</h2>
-  <p>
-    Niniejsza Polityka Prywatności opisuje sposób przetwarzania danych
-    w aplikacji mobilnej „Flota”.
-  </p>
+  <h2>2. Dane pojazdów na urządzeniu</h2>
+  <p>Flota zapisuje lokalnie m.in. VIN, numer rejestracyjny, datę pierwszej rejestracji,
+    markę, model, dane techniczne, terminy OC i badań, wyniki sprawdzania historii,
+    wybrane zdjęcia oraz ustawienia przypomnień. Dane pochodzą z wpisów użytkownika,
+    odczytu kodu AZTEC oraz wyników opisanych niżej zapytań. Aplikacja nie prowadzi
+    własnej serwerowej bazy pojazdów ani synchronizacji z kontem twórcy.</p>
+  <p>Odczyt obrazu i kodu AZTEC odbywa się na urządzeniu. Flota nie przesyła zdjęcia
+    dowodu ani zawartości kodu do serwera rozpoznawania obrazu i nie zapisuje automatycznie zdjęcia
+    skanowanego dowodu jako elementu bazy. Dane właściciela zawarte w kodzie nie są zapisywane
+    jako dane właściciela pojazdu. Wybrany przez użytkownika plik źródłowy może nadal
+    pozostać w galerii lub u jego dostawcy plików.</p>
 
-  <p>
-    Aplikacja służy do przechowywania informacji o pojazdach oraz sprawdzania
-    wybranych danych dotyczących pojazdu, w tym informacji związanych z
-    badaniem technicznym i ubezpieczeniem OC.
-  </p>
+  <h2>3. Historia Pojazdu i zdjęcia poglądowe</h2>
+  <p>Do sprawdzenia Historii Pojazdu Flota przesyła numer VIN, numer rejestracyjny
+    i datę pierwszej rejestracji bezpośrednio przez HTTPS do usługi rządowej
+    pod adresem <a href="https://moj.gov.pl/">moj.gov.pl</a>, powiązanej
+    z <a href="https://historiapojazdu.gov.pl/">Historią Pojazdu</a>.
+    Zapytania są potrzebne do uzyskania danych pojazdu, OC, badań i zdarzeń.
+    Mogą następować przy korzystaniu z funkcji oraz w ramach automatycznego sprawdzania
+    przewidzianego przez aplikację dla monitorowanych pojazdów.
+    Sesja techniczna służy realizacji zapytania, a wynik jest zapisywany lokalnie.</p>
+  <p>Przy wyszukiwaniu zdjęcia poglądowego Flota wysyła do Wikimedia Commons opis modelu
+    (markę, model, generację i rodzaj nadwozia). Rok produkcji pomaga lokalnie dobrać
+    wariant. To zapytanie nie zawiera VIN-u ani numeru rejestracyjnego. Zdjęcia są
+    pobierane z serwerów Wikimedia. Operatorzy połączeń internetowych mogą otrzymywać
+    także adres IP i techniczne informacje o żądaniu.</p>
 
-  <h2>2. Dane wykorzystywane przez aplikację</h2>
-  <p>Aplikacja może wykorzystywać następujące dane dotyczące pojazdu:</p>
+  <h2>4. Uprawnienia, diagnostyka i bezpieczeństwo</h2>
+  <p>Dostęp do aparatu służy skanowaniu kodu. Systemowy wybór pliku pozwala przekazać
+    Flocie wybrane zdjęcie. Uprawnienie do powiadomień służy lokalnym przypomnieniom;
+    mechanizmy Androida pozwalają odtworzyć je po restarcie urządzenia. Flota nie
+    wymaga dostępu do lokalizacji, kontaktów, mikrofonu ani SMS-ów.</p>
+  <p>Skaner korzysta z Google ML Kit oraz ZXing. Rozpoznawanie kodów jest lokalne,
+    ale według <a href="https://developers.google.com/ml-kit/android-data-disclosure">informacji Google o ML Kit</a>
+    biblioteka ML Kit przekazuje do Google dane diagnostyczne i statystyki użycia:
+    informacje o urządzeniu i aplikacji, identyfikatory instalacji, wydajność,
+    konfigurację i zdarzenia działania biblioteki oraz kody błędów. To odrębny
+    przepływ od treści skanowanego dokumentu i dobrowolnego załączania danych do feedbacku.</p>
+  <p>Flota nie zawiera reklam, nie prowadzi marketingowego profilowania ani własnej
+    analityki kliknięć. Nie oznacza to braku diagnostyki bibliotek ani braku cookies
+    i analityki na odwiedzanych stronach zewnętrznych.</p>
+  <p>Połączenia sieciowe aplikacji używają HTTPS. Lokalną bazę i pliki chronią
+    mechanizmy dostępu Androida; aplikacja wyłącza systemową kopię zapasową swoich
+    danych. Bezpieczeństwo zależy też od blokady i aktualizacji urządzenia.
+    Wersje debug mogą zapisywać lokalne informacje diagnostyczne skanera;
+    formularz feedbacku nie zapisuje treści zgłoszenia do logów.</p>
+
+  <h2>5. Dobrowolny feedback i korespondencja</h2>
+  <p>Możesz zgłosić błąd, zaproponować zmianę lub przesłać opinię. Flota przygotowuje
+    edytowalną wiadomość w Twojej aplikacji pocztowej do
+    <a href="mailto:michal.draba@gmail.com">michal.draba@gmail.com</a>.
+    Widzisz treść i samodzielnie decydujesz o jej wysłaniu. Otwarcie poczty nie oznacza
+    wysłania zgłoszenia. Możesz też skopiować adres i treść do schowka.</p>
+  <p>Po wysłaniu twórca otrzymuje adres nadawcy, treść wiadomości oraz informacje
+    i załączniki świadomie dodane przez nadawcę. Obsługa korespondencji odbywa się
+    także u dostawcy Twojej poczty i w Gmailu po stronie odbiorcy.</p>
+  <p>Wersja i numer kompilacji Floty oraz platforma i wersja systemu są dołączane
+    przez aplikację wyłącznie po włączeniu opcji danych technicznych i wyświetleniu
+    podglądu. Flota nie dołącza automatycznie VIN-u, tablic, zdjęcia dowodu, kodu AZTEC,
+    raportu Historii Pojazdu ani bazy pojazdów. Nie podawaj w opisie danych, które nie
+    są potrzebne do wyjaśnienia sprawy.</p>
+
+  <h2>6. Dobrowolne wsparcie: PayPal i Suppi</h2>
+  <p>Wsparcie jest dobrowolne i nie odblokowuje dodatkowych funkcji ani priorytetowej
+    obsługi. PayPal pozostaje dostępną metodą wsparcia. Wersje Floty z poprawnie
+    skonfigurowanym i włączonym profilem Suppi udostępniają również „Wesprzyj BLIK-iem”.
+    Użytkownik wybiera kwotę i metodę płatności na stronie wybranego serwisu.</p>
+  <p>Przejście następuje poza Flotą — do przeglądarki lub aplikacji obsługującej link.
+    Płatność obsługuje PayPal albo Suppi i jego operatorzy. Flota nie pobiera kodu BLIK,
+    numeru karty, hasła bankowego ani danych logowania do PayPal. Nie dołącza danych
+    pojazdu, e-maila ani identyfikatora urządzenia do adresów płatniczych.
+    Nie odczytuje strony płatności, nie otrzymuje automatycznego potwierdzenia
+    transakcji i nie uznaje powrotu do aplikacji za potwierdzenie wpłaty.</p>
+  <p>Serwis zewnętrzny może udostępnić odbiorcy informacje o wpłacie i wpłacającym,
+    w zakresie wynikającym z działania serwisu i wyborów użytkownika. Aplikacja
+    nie obsługuje danych płatniczych, ale nie oznacza to, że twórca nigdy nie otrzyma
+    informacji o wpłacającym. Nie gwarantujemy anonimowości wpłat.</p>
   <ul>
-    <li>numer rejestracyjny,</li>
-    <li>numer VIN,</li>
-    <li>datę pierwszej rejestracji,</li>
-    <li>dane pojazdu zapisane przez użytkownika.</li>
+    <li><a href="https://www.paypal.com/pl/legalhub/paypal/privacy-full">Polityka prywatności PayPal</a></li>
+    <li><a href="https://suppi.pl/polityka_prywatnosci">Polityka prywatności Suppi</a>
+      (pełna treść jest dostępna także po wybraniu „Ustawienia zaawansowane” na stronie Suppi).</li>
   </ul>
 
-  <p>
-    Dane te nie są wykorzystywane do tworzenia profilu użytkownika ani
-    w celach reklamowych.
-  </p>
+  <h2>7. Cele, podstawy i odbiorcy danych</h2>
+  <p>Przetwarzanie korespondencji służy odpowiedzi na zgłoszenie, rozwiązaniu problemu
+    i rozwojowi Floty. Podstawą jest prawnie uzasadniony interes w prowadzeniu
+    komunikacji i obsłudze zgłoszeń (art. 6 ust. 1 lit. f RODO). Gdy sprawa dotyczy
+    umowy lub działań na Twoje żądanie przed jej zawarciem, właściwą podstawą jest
+    art. 6 ust. 1 lit. b RODO. Wysłanie e-maila nie oznacza zgody na dowolne
+    wykorzystanie danych ani marketing.</p>
+  <p>Informacje otrzymane przez twórcę o wsparciu służą obsłudze i rozliczeniu wpłat.
+    W zakresie niezbędnym do wykonania zobowiązań związanych z wpłatą podstawą jest
+    art. 6 ust. 1 lit. b RODO, a w zakresie obowiązków prawnych, np. podatkowych,
+    art. 6 ust. 1 lit. c RODO. Ustalenie, dochodzenie lub obrona roszczeń opiera się
+    na art. 6 ust. 1 lit. f RODO. Operatorzy usług ustalają własne podstawy dla swoich procesów.</p>
+  <p>Odbiorcami danych mogą być odpowiednio dostawcy poczty (w tym Google/Gmail),
+    operatorzy płatności i serwisów wsparcia, operatorzy usług rządowych,
+    Wikimedia, Google jako dostawca ML Kit oraz uprawnione organy, gdy wynika to
+    z obowiązku prawnego. Odwiedzenie tej polityki wiąże się z obsługą żądania
+    przez GitHub Pages. Dane nie są sprzedawane przez twórcę do celów marketingowych.</p>
+  <p>Usługi zewnętrzne mogą przetwarzać dane poza Europejskim Obszarem Gospodarczym.
+    Ich zasady opisują odbiorców, miejsca przetwarzania, podstawy transferów
+    i zabezpieczenia. Informacje i kontakt w sprawie kopii właściwych zabezpieczeń:
+    <a href="https://policies.google.com/privacy?hl=pl">Google i Gmail</a>,
+    <a href="https://foundation.wikimedia.org/wiki/Policy:Privacy_policy">Wikimedia</a>,
+    <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub</a>
+    oraz polityki PayPal i Suppi wskazane wyżej. W sprawie danych przetwarzanych
+    przez twórcę możesz napisać na adres kontaktowy Floty.</p>
 
-  <h2>3. Przechowywanie danych</h2>
-  <p>
-    Dane pojazdów wprowadzone przez użytkownika są przechowywane lokalnie
-    na urządzeniu użytkownika.
-  </p>
-
-  <p>
-    Deweloper aplikacji nie przechowuje tych danych na własnych serwerach
-    ani w zewnętrznej chmurze.
-  </p>
-
-  <p>
-    Użytkownik może usunąć dane pojazdu bezpośrednio w aplikacji.
-  </p>
-
-  <h2>4. Sprawdzanie danych pojazdu</h2>
-  <p>
-    W celu realizacji funkcji sprawdzania informacji o pojeździe aplikacja
-    może przesyłać numer rejestracyjny, numer VIN oraz datę pierwszej
-    rejestracji do zewnętrznej usługi wykorzystywanej do pobierania informacji
-    o pojeździe, powiązanej z serwisem historiapojazdu.gov.pl.
-  </p>
-
-  <p>
-    Dane są przekazywane wyłącznie w zakresie niezbędnym do wykonania zapytania
-    i przedstawienia użytkownikowi wyniku.
-  </p>
-
-  <h2>5. Analityka, reklamy i śledzenie</h2>
-  <p>Aplikacja „Flota”:</p>
+  <h2>8. Przechowywanie i usuwanie — trzy odrębne zakresy</h2>
   <ul>
-    <li>nie korzysta z usług reklamowych,</li>
-    <li>nie korzysta z mechanizmów profilowania użytkowników,</li>
-    <li>nie wykorzystuje danych do celów marketingowych,</li>
-    <li>nie korzysta z zewnętrznych systemów analitycznych,</li>
-    <li>nie wymaga tworzenia konta użytkownika.</li>
+    <li><strong>Urządzenie:</strong> wpisy pojazdów pozostają do ich usunięcia przez
+      użytkownika. Archiwizacja nie jest usunięciem. Wyczyszczenie danych aplikacji
+      lub jej odinstalowanie usuwa prywatne dane Floty, w tym pamięć podręczną.
+      Oryginalne zdjęcia i pliki poza aplikacją trzeba usunąć osobno u ich źródła.</li>
+    <li><strong>Korespondencja u twórcy:</strong> Korespondencja dotycząca aplikacji jest przechowywana przez czas
+      niezbędny do obsługi zgłoszenia. Po zakończeniu sprawy dane są
+      usuwane lub anonimizowane, chyba że ich dalsze przechowywanie
+      jest niezbędne do wykonania obowiązków prawnych albo ustalenia,
+      dochodzenia lub obrony roszczeń. W takim przypadku przechowywany
+      jest wyłącznie niezbędny zakres danych, przez okres uzasadniony
+      daną podstawą. Są to zasady stosowane przez Michała Drabę przy obsłudze
+      korespondencji, a nie funkcja automatycznego usuwania e-maili przez Flotę.
+      O usunięcie danych można wystąpić na adres kontaktowy.</li>
+    <li><strong>Transakcje i usługi zewnętrzne:</strong> operatorzy stosują własne
+      okresy przechowywania i obowiązki prawne. Żądania dotyczące ich danych należy
+      kierować do odpowiedniego operatora. Twórca przechowuje otrzymane informacje
+      o wpłatach w zakresie potrzebnym do rozliczenia, obowiązków prawnych i roszczeń.</li>
   </ul>
+  <p>Usunięcie pojazdu albo Floty nie usuwa automatycznie e-maili ze skrzynki
+    odbiorcy ani danych transakcji u operatorów. Twórca nie ma dostępu do lokalnej
+    bazy na Twoim urządzeniu w celu jej zdalnego usunięcia.</p>
 
-  <h2>6. Udostępnianie danych</h2>
-  <p>
-    Deweloper nie sprzedaje ani nie udostępnia danych użytkowników podmiotom
-    trzecim w celach marketingowych.
-  </p>
+  <h2>9. Twoje prawa</h2>
+  <p>W granicach przewidzianych przez RODO możesz żądać dostępu do danych i ich kopii,
+    sprostowania, usunięcia lub ograniczenia przetwarzania. Możesz wnieść sprzeciw
+    wobec przetwarzania opartego na prawnie uzasadnionym interesie. Prawo przenoszenia
+    danych przysługuje, gdy spełnione są ustawowe warunki, w szczególności przy
+    przetwarzaniu automatycznym na podstawie zgody lub umowy. Jeżeli dany proces
+    opiera się na zgodzie, można ją wycofać bez wpływu na wcześniejsze zgodne z prawem
+    przetwarzanie. Możesz złożyć skargę do Prezesa Urzędu Ochrony Danych Osobowych.</p>
+  <p>W sprawach danych otrzymanych przez twórcę napisz do
+    <a href="mailto:michal.draba@gmail.com">michal.draba@gmail.com</a>.
+    Podanie danych w feedbacku i wsparcie są dobrowolne; ich brak nie ogranicza
+    funkcji Floty. Brak danych kontaktowych może uniemożliwić odpowiedź na zgłoszenie.
+    Twórca nie wykorzystuje otrzymanej korespondencji do zautomatyzowanych decyzji
+    wywołujących skutki prawne ani profilowania marketingowego.</p>
 
-  <p>
-    Dane pojazdu mogą być przekazywane wyłącznie do usługi zewnętrznej
-    niezbędnej do realizacji funkcji sprawdzania informacji o pojeździe.
-  </p>
-
-  <h2>7. Bezpieczeństwo danych</h2>
-  <p>
-    Dane przechowywane przez aplikację są zapisywane lokalnie na urządzeniu
-    użytkownika. Bezpieczeństwo tych danych zależy również od zabezpieczeń
-    systemu Android oraz samego urządzenia użytkownika.
-  </p>
-
-  <h2>8. Okres przechowywania i usuwanie danych</h2>
-  <p>
-    Dane są przechowywane lokalnie tak długo, jak długo użytkownik zachowuje
-    je w aplikacji.
-  </p>
-
-  <p>
-    Deweloper nie przechowuje kopii tych danych na własnych serwerach.
-  </p>
-
-  <h2>9. Kontakt</h2>
-  <p>
-    W sprawach dotyczących prywatności i działania aplikacji można skontaktować
-    się z deweloperem:
-  </p>
-
-  <p>
-    <strong>michal.draba@gmail.com</strong>
-  </p>
-
-  <h2>10. Zmiany Polityki Prywatności</h2>
-  <p>
-    Polityka Prywatności może być aktualizowana w przypadku zmian
-    funkcjonalności aplikacji lub wymagań prawnych.
-  </p>
-
-  <p>
-    Aktualna wersja Polityki Prywatności będzie publikowana pod adresem
-    wskazanym w Google Play.
-  </p>
+  <h2>10. Zmiany dokumentu</h2>
+  <p>Polityka jest aktualizowana wraz ze zmianami funkcji i procesów przetwarzania.
+    Jej aktualna wersja znajduje się pod adresem
+    <a href="https://dramich72.github.io/flota-privacy/">dramich72.github.io/flota-privacy/</a>,
+    dostępnym również z ekranu „Wsparcie i feedback” we Flocie.</p>
+</main>
 </body>
 </html>
